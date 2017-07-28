@@ -8,7 +8,8 @@ var apiUrls = {
   getFlows: process.env.GET_FLOWS_ENDPOINT,
   saveFlows: process.env.SAVE_FLOWS_ENDPOINT,
   getSettings: process.env.GET_SETTINGS_ENDPOINT,
-  saveSettings: process.env.SAVE_SETTINGS_ENDPOINT
+  getCredentials: process.env.GET_CREDENTIALS_ENDPOINT,
+  saveCredentials: process.env.SAVE_CREDENTIALS_ENDPOINT
 }
 
 // Private variables and functions
@@ -27,7 +28,7 @@ var saveJSON = function(endpoint, json) {
     request(requestParams, function(error, response, body) {
       if (error) {
         log.info(error);
-        return reject();
+        reject();
       }
 
       resolve();
@@ -104,17 +105,13 @@ var apiStorage = {
 
   getCredentials: function() {
     log.info("getCredentials called");
-    return when.promise(function(resolve,reject) {
-      resolve([]);
-    });
+    return fetchJSON(apiUrls.getCredentials);
   },
 
   saveCredentials: function(credentials) {
     log.info("saveCredentials called with:");
     log.info(credentials);
-    return when.promise(function(resolve,reject) {
-      resolve();
-    });
+    return saveJSON(apiUrls.saveCredentials, credentials);
   },
 
   getSettings: function() {
