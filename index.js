@@ -122,7 +122,9 @@ var apiStorage = {
   saveSettings: function(newSettings) {
     log.info("saveSettings called with:");
     log.info(util.inspect(newSettings));
-    return saveJSON(apiUrls.saveSettings, newSettings);
+    return when.promise(function(resolve,reject) {
+      resolve();
+    });
   },
 
   getSessions: function() {
